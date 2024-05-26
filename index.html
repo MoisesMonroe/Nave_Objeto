@@ -1,0 +1,49 @@
+<html lang="pt-br">
+<head>
+    <title>Nave como Objeto</title>
+    <meta charset="UTF-8">
+    <script src="sprite.js"></script>
+    <style>
+
+        #canv {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canv" width="800" height="600">
+        Este Browser não suporta o objeto Canvas do HTML5
+    </canvas>
+    <script>
+        let canvas = document.getElementById("canv");
+        let ctx = canvas.getContext("2d");
+
+        let imgNave = new Image();
+        imgNave.src = "img/heroi.png";
+        imgNave.onload = function() {
+            criaNave();
+        };
+        
+        function criaNave() {
+            nave = new Sprite(ctx, imgNave, canvas.width / 2 - imgNave.width / 2, canvas.height - imgNave.height, 20);
+            nave.desenhar();
+        }
+
+        document.addEventListener("keydown", function(evento) {
+            var tecla = evento.key;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if(tecla == "ArrowLeft") { // Seta para esquerda
+                nave.esquerda();
+            } else if(tecla == "ArrowRight") { // Seta para direita
+                nave.direita();
+            } else if(tecla == "ArrowUp") { // Seta para cima
+                nave.subir();
+            } else if(tecla == "ArrowDown") { // Seta para baixo
+                nave.descer(30);
+            }
+            nave.desenhar();
+        });
+    </script>
+</body>
+</html>
